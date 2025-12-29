@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import "./Home.css";
 import gccImg from "../assets/img/gcc.png";
+import SpinningTitle3D from "../components/SpinningTitle3D";
 
 //#region NAVBAR LOGIC
 function Home() {
