@@ -1,0 +1,222 @@
+#root {
+  font-family: monospace, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+body,
+html {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-color: #000000;
+  
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+}
+
+.center-nav {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  font-size: 2rem;
+  gap: 2rem;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  padding: 20px 0 20px 20px;
+  background: rgba(0, 0, 0, 0);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.center-nav.visible {
+  transform: translateY(0);
+}
+
+.center-nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.center-nav a:hover {
+  color: yellow;
+}
+
+header {
+  font-size: clamp(2rem, 12vw, 250px);
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  position: sticky;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 0 2vw;
+}
+
+h1 {
+  font-size: 80px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  text-align: center;
+  margin-top: -100px;
+}
+
+.about {
+  width: 100%;
+  max-width: 1800px;
+  font-size: clamp(1.1rem, 4vw, 50px);
+  margin-top: 60px;
+  border-radius: 70px;
+  
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  left: 0;
+  right: 0;
+  position: relative;
+}
+
+
+
+.about:hover,
+.more:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+footer {
+  position: sticky;
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: red;
+}
+
+@font-face {
+  font-family: "OMORI";
+  src: url("../assets/OMORI_GAME2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.home-container {
+  max-width: 1800px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+@media (max-width: 1800px) {
+  .home-container {
+    max-width: 100vw;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+  }
+  .about,
+  .more {
+    max-width: 90vw;
+    font-size: 2.2rem;
+    margin-top: 40px;
+    padding: 2vw 2vw;
+  }
+  header {
+    font-size: clamp(2rem, 12vw, 120px);
+    margin-top: 0;
+    padding: 0 2vw;
+  }
+  h1 {
+    font-size: 40px;
+    margin-top: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .center-nav {
+    font-size: 1.1rem;
+    gap: 1rem;
+    padding: 10px 0 10px 10px;
+  }
+  .preview-grid {
+    grid-template-columns: 1fr;
+    max-width: 95vw;
+    gap: 15px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .preview-card {
+    min-height: 200px;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  .preview-image {
+    height: 180px;
+    font-size: 1rem;
+  }
+  .about,
+  .more {
+    max-width: 95vw;
+    font-size: 1.1rem;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 2vw 2vw;
+  }
+  header {
+    font-size: clamp(2rem, 12vw, 60px);
+    margin-top: 0;
+    padding: 0 2vw;
+  }
+  h1 {
+    font-size: 22px;
+    margin-top: -20px;
+  }
+  .conclusion {
+    font-size: 1.1rem;
+  }
+  footer {
+    font-size: 1rem;
+  }
+}
