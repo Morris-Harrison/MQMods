@@ -281,6 +281,17 @@ function ModSummary({ selectedMods, removeMod, getEffectivePrice }) {
 function Home() {
   const aboutRef = useRef(null);
   const topRef = useRef(null);
+  const navRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll to show/hide navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Controller Builder State
   const [selectedMods, setSelectedMods] = useState(() => {
@@ -467,15 +478,20 @@ function Home() {
 
       const index = newMods[category].findIndex((m) => m.id === modId);
       if (index > -1) {
-        newMods[category].splice(index, 1);
+        // Remove the mod - create new array without this mod
+        newMods[category] = newMods[category].filter((m) => m.id !== modId);
       } else {
-        newMods[category].push({
-          id: modId,
-          name: modName,
-          standard: standardPrice,
-          tournament: tournamentPrice,
-          description,
-        });
+        // Add the mod - create new array with new mod
+        newMods[category] = [
+          ...newMods[category],
+          {
+            id: modId,
+            name: modName,
+            standard: standardPrice,
+            tournament: tournamentPrice,
+            description,
+          },
+        ];
       }
 
       return newMods;
@@ -628,7 +644,10 @@ function Home() {
       </div>
 
       <div className="home-container" ref={topRef}>
-        <nav className="center-nav">
+        <nav
+          className={`center-nav ${isScrolled ? "visible" : ""}`}
+          ref={navRef}
+        >
           <Link to="/">home</Link>
           <Link to="/about">about</Link>
           <Link to="/gallery">gallery</Link>
@@ -663,6 +682,17 @@ function Home() {
               style={{ background: "#72cc86" }}
             >
               Motherboard
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setActiveMenu(activeMenu === "shell" ? null : "shell");
+                setMenuPosition({ x: e.pageX, y: e.pageY + 10 });
+              }}
+              className="toggle-btn"
+              style={{ background: "#5A4FCF" }}
+            >
+              Shell
             </button>
             <a href="/checkout/checkout.html" className="cart-button">
               Cart
@@ -714,30 +744,6 @@ function Home() {
                   style={{ width: "25%", height: "auto", display: "block" }}
                 />
               </div>
-
-              {/* Shell Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveMenu(activeMenu === "shell" ? null : "shell");
-                  setMenuPosition({ x: e.pageX, y: e.pageY + 10 });
-                }}
-                style={{
-                  position: "absolute",
-                  right: "-50px",
-                  top: "calc(50% - 12px)",
-                  background: "#5A4FCF",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "4px",
-                  padding: "6px 10px",
-                  fontSize: "0.8rem",
-                  cursor: "pointer",
-                  zIndex: 10,
-                }}
-              >
-                Shell
-              </button>
             </div>
 
             {/* All Mod Menus */}
@@ -785,8 +791,8 @@ function Home() {
           style={{
             marginTop: "40px",
             textAlign: "center",
-            fontSize: "0.9rem",
-            color: "#999",
+            fontSize: "40px",
+            color: "#ffffffff",
           }}
         >
           2025 MQMods
