@@ -793,9 +793,70 @@ function Home() {
             textAlign: "center",
             fontSize: "40px",
             color: "#ffffffff",
+            paddingBottom: "20px",
+            backgroundColor: "rgba(0,0,0,0.5)",
           }}
         >
-          2025 MQMods
+          <div style={{ marginBottom: "16px" }}>2025 MQMods</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "32px",
+              marginTop: "16px",
+              alignItems: "center",
+            }}
+          >
+            <a
+              href="https://discord.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                transition: "opacity 0.3s",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onMouseEnter={(e) => (e.target.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.target.style.opacity = "1")}
+              title="Discord"
+            >
+              <img src="/img/discord.png" alt="Discord" style={{ height: "48px", width: "48px", display: "block" }} />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                transition: "opacity 0.3s",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onMouseEnter={(e) => (e.target.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.target.style.opacity = "1")}
+              title="Twitter"
+            >
+              <img src="/img/x.png" alt="Twitter" style={{ height: "48px", width: "48px", display: "block" }} />
+            </a>
+            <a
+              href="mailto:contact@mqmods.com"
+              style={{
+                transition: "opacity 0.3s",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onMouseEnter={(e) => (e.target.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.target.style.opacity = "1")}
+              title="Email"
+            >
+              <img src="/img/mail.png" alt="Email" style={{ height: "48px", width: "48px", display: "block" }} />
+            </a>
+          </div>
         </footer>
       </div>
     </>

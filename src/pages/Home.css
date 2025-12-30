@@ -409,8 +409,13 @@ h1 {
 }
 
 @keyframes pulse-default {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 /* Media Query for Mobile */
@@ -457,7 +462,6 @@ h1 {
 }
 
 footer {
-  position: bottom;
   font-size: 40px;
   color: rgb(255, 255, 255);
   text-align: center;
@@ -467,7 +471,6 @@ footer a {
   color: white;
   text-decoration: none;
   transition: color 0.2s ease;
-  position: fixed;
 }
 
 @font-face {

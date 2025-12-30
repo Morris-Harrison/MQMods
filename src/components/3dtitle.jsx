@@ -32,7 +32,7 @@ export default function Title3D({
   bevelThickness = 0.04,
   bevelSize = 0.02,
   bevelSegments = 5,
-  color = "#000000ff",
+  color = "#ffffff",
   metalness = 1,
   roughness = 0.4,
   ...props
