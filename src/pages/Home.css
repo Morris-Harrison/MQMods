@@ -71,7 +71,11 @@ header {
   width: 100%;
   padding: 0 2vw;
 }
-
+.hero-canvas {
+  width: 100vw;
+  height: 100vh;   /* full screen */
+  position: relative;
+}
 h1 {
   font-size: 80px;
   color: white;
@@ -86,9 +90,9 @@ h1 {
   font-size: clamp(1.1rem, 4vw, 50px);
   margin-top: 60px;
   border-radius: 70px;
-  
+  background-color: aqua;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.2);
+  
   text-align: center;
   left: 0;
   right: 0;

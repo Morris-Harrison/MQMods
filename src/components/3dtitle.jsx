@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import React, {
   useEffect,
   useMemo,
@@ -18,22 +16,22 @@ import { Center, Text3D } from "@react-three/drei";
  */
 export default function Title3D({
   // Static fallbacks (used when cycle=false)
-  text = "Futaba",
-  font = "/fonts/dior.json",
+  text = "MQMODS",
+  font = "/fonts/mono.json",
   // Cycle behavior
-  cycle = true,
-  fonts = ["/fonts/ysl.json", "/fonts/dior.json"],
-  words = ["YSL", "DIOR"],
+  cycle = false,
+  fonts = ["/fonts/mono.json", "/fonts/mono.json"],
+  words = ["MQ MODS"],
   intervalMs = 3000,
   // Geometry/material
   size = 1.2,
-  height = 0.35,
+  height = 0.05,
   curveSegments = 12,
   bevelEnabled = true,
   bevelThickness = 0.04,
   bevelSize = 0.02,
   bevelSegments = 5,
-  color = "#111111",
+  color = "#ffffff",
   metalness = 1,
   roughness = 0.4,
   ...props
@@ -100,9 +98,11 @@ export default function Title3D({
           bevelThickness={bevelThickness}
           bevelSize={bevelSize}
           bevelSegments={bevelSegments}
+          color={color}
         >
           {current.word}
           <meshStandardMaterial
+            key={color}
             color={color}
             metalness={metalness}
             roughness={roughness}
