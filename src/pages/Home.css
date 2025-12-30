@@ -34,18 +34,12 @@ body {
   left: 0;
   width: 100vw;
   z-index: 1000;
-  font-size: 2rem;
+  font-size: 1.2rem;
   gap: 2rem;
   color: white;
   text-shadow: 2px 2px 4px #000000;
   padding: 20px 0 20px 20px;
-  background: rgba(0, 0, 0, 0);
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-}
-
-.center-nav.visible {
-  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .center-nav a {
@@ -208,6 +202,7 @@ h1 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   font-size: 0.9rem;
   text-align: left;
+  color: #000;
 }
 .modal.active { display: block; }
 .modal h4 {
@@ -262,6 +257,7 @@ h1 {
   flex-wrap: wrap;
   gap: 16px;
   justify-content: flex-start;
+  color: #000;
 }
 .mod-summary h3 {
   width: 100%;
@@ -285,6 +281,7 @@ h1 {
 /* Each mod group (column) */
 .mod-group {
   flex: 0 0 150px;
+  color: #000;
 }
 .mod-group h4 {
   margin: 0 0 4px;
@@ -293,6 +290,9 @@ h1 {
   color: #5A4FCF;
   border-bottom: 1px solid #eee;
   padding-bottom: 2px;
+}
+.mod-group li {
+  color: #000;
 }
 /* Inside each mod group, use grid layout */
 .mod-group ul {
