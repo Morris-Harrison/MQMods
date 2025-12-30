@@ -5,7 +5,6 @@ import SpinningTitle3D from "../components/SpinningTitle3D";
 import { Canvas } from "@react-three/fiber";
 import { Center, ContactShadows } from "@react-three/drei";
 
-//#region NAVBAR LOGIC & LEGACY VARIABLES
 function Home() {
   const aboutRef = useRef(null);
   const topRef = useRef(null);
@@ -19,160 +18,6 @@ function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const partDefinitions = {
-    "grey-stick": {
-      shape: "poly",
-      coords:
-        "159,198,205,193,245,199,272,207,294,220,310,234,322,249,332,265,337,284,337,309,331,331,324,343,311,357,296,370,271,384,253,392,224,398,202,400,177,399,154,394,137,389,120,383,107,374,94,363,84,353,74,337,65,320,60,298,64,276,71,261,83,243,97,229,111,219,125,209,137,203,149,200",
-    },
-    "face-buttons": {
-      shape: "poly",
-      coords:
-        "709,282,710,313,714,348,728,377,753,390,784,402,823,413,859,419,915,421,959,412,993,397,1022,375,1036,354,1054,326,1059,303,1057,266,1040,231,1015,207,990,187,959,172,921,162,876,156,842,162,806,168,773,184,753,201,739,215,725,230,716,249,709,267",
-    },
-    "c-stick": {
-      shape: "poly",
-      coords: "660,432,631,483,657,530,727,555,791,531,819,482,791,432,724,412",
-    },
-    paracord: { shape: "rect", coords: "509,0,575,88" },
-    "left-trigger": {
-      shape: "poly",
-      coords:
-        "105,171,123,138,138,125,155,115,180,109,205,109,220,109,242,113,265,123",
-    },
-    "z-button": {
-      shape: "poly",
-      coords: "817,125,976,169,966,156,943,141,912,131,888,125,855,118,836,118",
-    },
-    "right-trigger": {
-      shape: "poly",
-      coords: "842,115,880,107,909,109,928,113,951,125,964,136,968,152,907,127",
-    },
-  };
-
-  const partToCategory = {
-    paracord: "Cable",
-    "left-trigger": "Left Trigger",
-    "right-trigger": "Right Trigger",
-    "z-button": "z-button",
-    "face-buttons": "Face Buttons",
-    "grey-stick": "Grey Stick",
-    "c-stick": "C Stick",
-  };
-
-  const modOptions = {
-    Cable: [
-      {
-        id: "paracord_2m",
-        name: "Paracord 2 Metres",
-        standard: 55,
-        tournament: 60,
-        description: "Same as below but 2 metre old controller length.",
-      },
-      {
-        id: "paracord_3m",
-        name: "Paracord 3 Metres",
-        standard: 65,
-        tournament: 70,
-        description:
-          "Cord hand crimped and paracorded up. Length of new controller cable.",
-      },
-    ],
-    Shell: [
-      {
-        id: "gccblack",
-        name: "Black",
-        filename: "/assets/img/gccblack.png",
-        standard: 200,
-        tournament: 250,
-        description: "Black shell",
-      },
-      {
-        id: "gccindigo",
-        name: "Indigo",
-        filename: "/assets/img/gcc.png",
-        standard: 200,
-        tournament: 250,
-        description: "Indigo shell",
-      },
-    ],
-  };
-
-  const MODE_LABEL = {
-    Conversion: "Install",
-    Motherboard: "Board",
-    OEM: "OEM",
-  };
-
-  const [tournamentMode, setTournamentMode] = useState(false);
-  const [oemMode, setOemMode] = useState(false);
-  const [installMode, setInstallMode] = useState(false);
-  const [motherboardMode, setMotherboardMode] = useState(false);
-  const [selectedMods, setSelectedMods] = useState({});
-  const [selectedShell, setSelectedShell] = useState(modOptions.Shell[1]); // Indigo default
-  const [activeMenu, setActiveMenu] = useState(null); // part or "shell"
-  const [allHighlighted, setAllHighlighted] = useState(false);
-
-  // Handlers
-  const toggleTournament = () => {
-    const newValue = !tournamentMode;
-    setTournamentMode(newValue);
-    localStorage.setItem("tournamentMode", newValue);
-  };
-
-  const toggleOEM = () => {
-    setOemMode((prev) => !prev);
-  };
-
-  const toggleInstall = () => {
-    setInstallMode((prev) => !prev);
-    if (motherboardMode) setMotherboardMode(false);
-  };
-
-  const toggleMotherboard = () => {
-    setMotherboardMode((prev) => !prev);
-    if (installMode) setInstallMode(false);
-  };
-
-  const toggleMod = (category, mod) => {
-    setSelectedMods((prev) => {
-      const current = prev[category] || [];
-      const exists = current.find((m) => m.id === mod.id);
-      let updated;
-      if (exists) {
-        updated = current.filter((m) => m.id !== mod.id);
-      } else {
-        updated = [...current, mod];
-      }
-      return { ...prev, [category]: updated };
-    });
-  };
-
-  const selectShell = (shell) => {
-    setSelectedShell(shell);
-    setSelectedMods((prev) => {
-      const copy = { ...prev };
-      ["Shell", "Conversion", "Motherboard", "OEM"].forEach(
-        (k) => delete copy[k]
-      );
-      copy["Shell"] = [shell];
-      return copy;
-    });
-  };
-
-  // Persist to localStorage whenever selectedMods or tournamentMode changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(selectedMods));
-    localStorage.setItem("tournamentMode", tournamentMode);
-  }, [selectedMods, tournamentMode]);
-
-  // Toggle all highlights
-  const toggleAllHighlights = () => {
-    setAllHighlighted((prev) => !prev);
-  };
-
-  //#endregion
 
   return (
     <>
@@ -217,7 +62,6 @@ function Home() {
         </p>
         <>
           <div>
-            /*#region LEGACY STRUCTURE */
             <button
               id="toggle-tournament"
               className="toggle-btn"
@@ -282,8 +126,7 @@ function Home() {
               <a href="/checkout/checkout.html" className="cart-button">
                 Cart
               </a>
-            </div>
-            //#endregion
+            </div>     
           </div>
         </>
         <footer id="footer">2025 MQMods</footer>
@@ -292,5 +135,4 @@ function Home() {
   );
 }
 
-//#endregion
 export default Home;

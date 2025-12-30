@@ -1,4 +1,4 @@
-export default function Contact() {
+export default function Gallery() {
   return (
     <div>
       <h1>Contact</h1>

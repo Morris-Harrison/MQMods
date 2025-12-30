@@ -1,4 +1,4 @@
-export default function Legal() {
+export default function Warranty() {
   return (
     <div>
       <h1>Legal</h1>
