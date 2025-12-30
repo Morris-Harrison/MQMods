@@ -110,6 +110,307 @@ h1 {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
+.toggle-btn{
+  padding:8px 16px;
+  margin:0 4px 1rem;
+  border:none;
+  border-radius:4px;
+  background:#5a4fcf;
+  color:#fff;
+  font-size:.95rem;
+  cursor:pointer;
+}
+
+/* accent buttons */
+#toggle-oem        { background:#faa61a; }
+#toggle-install    { background:#7274cc; }
+#toggle-motherboard{ background:#72cc86; }
+#toggle-tournament{display:none;}
+
+/* Controller Image Container */
+#controllerContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border-radius: 4px;
+  overflow: visible;
+  margin-bottom: 16px;
+}
+#controllerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#shell-button {
+  position: absolute;
+  right: -50px; /* adjust as needed */
+  top: calc(50% - 12px); /* vertically center assuming ~24px height */
+  background: #5A4FCF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.1s ease, background 0.3s ease;
+}
+
+/* Phob Overlay */
+#phob-overlay {
+  position: absolute;
+  top: 30%;
+  left: 65%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+#phob-overlay img {
+  width: 25%;
+  height: auto;
+  display: block;
+}
+
+/* Dynamic Overlays for Non-Shell Parts */
+.part-overlay {
+  padding: 8px;
+  position: absolute;
+  cursor: pointer;
+  transition: background 0.3s, outline 0.3s;
+}
+.part-overlay:hover,
+.part-overlay.hovered,
+.part-overlay.always-highlight {
+  outline: 2px solid #5A4FCF;
+  background: rgba(90, 79, 207, 0.7);
+}
+/* Pulse Animation for initial hotspot highlight */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+.part-overlay.initial-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Popup Mod Menu */
+.modal {
+  display: none;
+  position: absolute;
+  background: #F2F2F2;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
+  padding: 12px;
+  z-index: 100;
+  width: 220px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+  text-align: left;
+}
+.modal.active { display: block; }
+.modal h4 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #D8D8D8;
+  padding-bottom: 4px;
+  color: #5A4FCF;
+}
+.modal .tooltip {
+  margin: 4px 0;
+  cursor: pointer;
+}
+.modal .tooltip span {
+  margin-right: 4px;
+}
+.modal .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px;
+  position: absolute;
+  z-index: 110;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+.modal .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Selected Mods Summary (Cart) */
+.mod-summary {
+  margin-top: 16px;
+  background: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-size: 0.9rem;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+.mod-summary h3 {
+  width: 100%;
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #D8D8D8;
+  padding-bottom: 6px;
+  color: #5A4FCF;
+}
+
+/* Container for mod groups (columns) */
+#mod-groups {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: flex-start;
+  width: 100%;
+}
+/* Each mod group (column) */
+.mod-group {
+  flex: 0 0 150px;
+}
+.mod-group h4 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5A4FCF;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 2px;
+}
+/* Inside each mod group, use grid layout */
+.mod-group ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mod-group li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+}
+.mod-group li:last-child {
+  border-bottom: none;
+}
+.mod-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.remove-mod {
+  color: #e74c3c;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+.mod-group .tooltip {
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 16px;
+  position: relative;
+}
+.mod-group .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px;
+  position: absolute;
+  z-index: 110;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mod-group .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Cart Button */
+.cart-button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: #FAA61A;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.1s ease, background 0.3s ease;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 600px) {
+  .main-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+  #mod-groups {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mod-group {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .mod-summary, .mod-group h4, .mod-group li {
+    font-size: 0.85rem;
+  }
+  /* Reposition shell button for mobile: inside container, bottom-right */
+  #shell-button {
+    right: 10px;
+    bottom: 10px;
+    top: auto;
+    transform: none;
+  }
+  /* Center modals on mobile */
+  .modal {
+    width: 80%;
+    left: 10%;
+    top: 20%;
+  }
+}
+
+/* Active state feedback for interactive elements */
+.toggle-btn:active,
+#shell-button:active,
+#toggle-oem:active,
+#toggle-install:active,
+#toggle-motherboard:active
+.cart-button:active {
+  transform: scale(0.97);
+}
 
 
 footer {
