@@ -31,20 +31,11 @@ export default function SpinningTitle3D() {
     }
   });
 
-  const handleClick = () => {
-    const g = group.current;
-    if (!g) return;
-    if (playing.current) return; // ignore clicks while spinning
-    // Start from current orientation; animate one full turn with ease-out
-    baseAngle.current = g.rotation.y;
-    elapsed.current = 0;
-    playing.current = true;
-  };
-
+  
   return (
     <group
       ref={group}
-      onClick={handleClick}
+      
       onPointerDown={(e) => e.stopPropagation()}
       onPointerOver={(e) => {
         e.stopPropagation();

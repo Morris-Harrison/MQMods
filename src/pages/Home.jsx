@@ -24,51 +24,57 @@ function Home() {
   //#endregion
 
   return (
-  <>
-    <div className="hero-canvas">
-      <Canvas shadows camera={{ position: [-7, 0, 6], fov: 50 }}>
-        <color attach="background" args={["#000000"]} />
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[5, 5, 5]} intensity={5} castShadow />
-        <Center>
-          <SpinningTitle3D />
-        </Center>
-        <ContactShadows
-          position={[0, -1.4, 0]}
-          opacity={0.45}
-          scale={1}
-          blur={2.8}
-          far={2.2}
-        />
-      </Canvas>
-    </div>
-
-
-    <div className="home-container" ref={topRef}>
-     
-
-      <header>mqmods</header>
-
-      <nav className={`center-nav ${isScrolled ? "visible" : ""}`}>
-        <Link to="/">home</Link>
-        <Link to="/about">about</Link>
-        <Link to="/gallery">gallery</Link>
-        <Link to="/warranty">warranty</Link>
-      </nav>
-      <p className="about" ref={aboutRef} id="about">
-        make your controller
-      </p>
-      <>
-        <div>
-          <img
-            src={gccImg}
-            alt="gcc"
-            style={{ maxWidth: "320px", width: "100%" }}
-          />
+    <>
+      <div className="hero-canvas">
+        <div
+          id="studio"
+          className=" flex items-center justify-center"
+          style={{ backgroundColor: "#000000" }}
+        >
+          <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>
+            <color attach="background" args={["#000000"]} />
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[-5, 5, 5]} intensity={3} castShadow />
+            <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+            <Center>
+              <SpinningTitle3D size={2.2} />
+              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
+                <planeGeometry args={[15, 5]} />
+                <meshStandardMaterial color="#000000" />
+              </mesh>
+            </Center>
+            <ContactShadows
+              position={[0, -1, 0]} // slightly below text
+              opacity={0.1} // make it darker/lighter
+              scale={10} // how far the shadow spreads
+              blur={2.5} // soft edges
+              far={1.5} // distance from “ground” to shadow
+            />
+          </Canvas>
         </div>
-      </>
-      <footer>2025 mqmods.</footer>
-    </div>
+      </div>
+
+      <div className="home-container" ref={topRef}>
+        <nav className={`center-nav ${isScrolled ? "visible" : ""}`}>
+          <Link to="/">home</Link>
+          <Link to="/about">about</Link>
+          <Link to="/gallery">gallery</Link>
+          <Link to="/warranty">warranty</Link>
+        </nav>
+        <p className="about" ref={aboutRef} id="about">
+          make your controller
+        </p>
+        <>
+          <div>
+            <img
+              src={gccImg}
+              alt="gcc"
+              style={{ maxWidth: "320px", width: "100%" }}
+            />
+          </div>
+        </>
+        <footer id="footer">2025 MQMods</footer>
+      </div>
     </>
   );
 }

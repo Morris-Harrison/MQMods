@@ -22,16 +22,17 @@ export default function Title3D({
   cycle = false,
   fonts = ["/fonts/mono.json", "/fonts/mono.json"],
   words = ["MQ MODS"],
+  
   intervalMs = 3000,
   // Geometry/material
-  size = 1.2,
-  height = 0.05,
+  size = 2,
+  height = 5,
   curveSegments = 12,
   bevelEnabled = true,
   bevelThickness = 0.04,
   bevelSize = 0.02,
   bevelSegments = 5,
-  color = "#ffffff",
+  color = "#000000ff",
   metalness = 1,
   roughness = 0.4,
   ...props
@@ -82,6 +83,7 @@ export default function Title3D({
     bevelThickness,
     bevelSize,
     bevelSegments,
+    
   ]);
 
   return (
@@ -99,6 +101,7 @@ export default function Title3D({
           bevelSize={bevelSize}
           bevelSegments={bevelSegments}
           color={color}
+          
         >
           {current.word}
           <meshStandardMaterial
