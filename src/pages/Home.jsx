@@ -808,7 +808,7 @@ function Home() {
             }}
           >
             <a
-              href="https://discord.com"
+              href="https://discord.com/users/139913959087013888"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -822,10 +822,14 @@ function Home() {
               onMouseLeave={(e) => (e.target.style.opacity = "1")}
               title="Discord"
             >
-              <img src="/img/discord.png" alt="Discord" style={{ height: "48px", width: "48px", display: "block" }} />
+              <img
+                src="/img/discord.png"
+                alt="Discord"
+                style={{ height: "48px", width: "48px", display: "block" }}
+              />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com/mqmods"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -839,10 +843,14 @@ function Home() {
               onMouseLeave={(e) => (e.target.style.opacity = "1")}
               title="Twitter"
             >
-              <img src="/img/x.png" alt="Twitter" style={{ height: "48px", width: "48px", display: "block" }} />
+              <img
+                src="/img/x.png"
+                alt="Twitter"
+                style={{ height: "48px", width: "48px", display: "block" }}
+              />
             </a>
             <a
-              href="mailto:contact@mqmods.com"
+              href="mailto:mqphobgcc@gmail.com"
               style={{
                 transition: "opacity 0.3s",
                 textDecoration: "none",
@@ -854,7 +862,11 @@ function Home() {
               onMouseLeave={(e) => (e.target.style.opacity = "1")}
               title="Email"
             >
-              <img src="/img/mail.png" alt="Email" style={{ height: "48px", width: "48px", display: "block" }} />
+              <img
+                src="/img/mail.png"
+                alt="Email"
+                style={{ height: "48px", width: "48px", display: "block" }}
+              />
             </a>
           </div>
         </footer>
