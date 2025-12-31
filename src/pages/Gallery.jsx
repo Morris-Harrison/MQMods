@@ -14,8 +14,22 @@ const images = [
 export default function Gallery() {
   return (
     <div className="gallery-wrapper">
+      {/* Logo HUD */}
+      <Link
+        to="/"
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "100px",
+          zIndex: 2000,
+          textDecoration: "none",
+        }}
+      >
+        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+      </Link>
+
       {/* Nav */}
-      <nav className="gallery-nav">
+      <nav className="gallery-nav" style={{ position: "static" }}>
         <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
           home
         </Link>
@@ -70,7 +84,7 @@ export default function Gallery() {
           {images.map((img) => (
             <div key={img.name} className={`bento-item ${img.size}`}>
               <img
-                src={`../img/${img.name}`}
+                src={`/img/${img.name}`}
                 alt={img.title}
                 style={{
                   width: "100%",

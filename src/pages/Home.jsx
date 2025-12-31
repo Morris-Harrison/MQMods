@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback } from "react";
 import "./Home.css";
-import SpinningTitle3D from "../components/SpinningTitle3D";
-import { Canvas } from "@react-three/fiber";
-import { Center, ContactShadows } from "@react-three/drei";
 import {
   partDefinitions,
   partToCategory,
@@ -13,7 +10,7 @@ import {
   shellNameById,
 } from "./controllerLogic";
 
-// Mod Menu Component
+//#region Mod Menu
 function ModMenu({
   part,
   category,
@@ -282,16 +279,6 @@ function Home() {
   const aboutRef = useRef(null);
   const topRef = useRef(null);
   const navRef = useRef(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Handle scroll to show/hide navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Controller Builder State
   const [selectedMods, setSelectedMods] = useState(() => {
@@ -312,7 +299,7 @@ function Home() {
     };
   });
 
-  const [controllerImage, setControllerImage] = useState("../img/gcc.png");
+  const [controllerImage, setControllerImage] = useState("/img/gcc.png");
   const [oemMode, setOemMode] = useState(() => {
     const saved = localStorage.getItem("oemMode");
     return saved ? JSON.parse(saved) : false;
@@ -407,7 +394,7 @@ function Home() {
 
   // Reset to Indigo shell
   const resetToIndigo = () => {
-    setControllerImage("../img/gcc.png");
+    setControllerImage("/img/gcc.png");
     setSelectedMods({
       Shell: [
         {
@@ -612,47 +599,64 @@ function Home() {
     return () => document.removeEventListener("click", handleDocClick);
   }, []);
 
+  //#endregion
   return (
     <>
-      <div className="hero-canvas">
-        <div
-          id="studio"
-          className=" flex items-center justify-center"
-          style={{ backgroundColor: "#000000" }}
+      {/* Logo HUD */}
+      <Link
+        to="/"
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "100px",
+          zIndex: 2000,
+          textDecoration: "none",
+        }}
+      >
+        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+      </Link>
+
+      <nav
+        style={{
+          position: "static",
+          top: 0,
+          left: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "40px",
+          padding: "20px",
+          backgroundColor: "transparent",
+          zIndex: 100,
+          fontSize: "1.2rem",
+        }}
+      >
+        <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
+          home
+        </Link>
+        <Link to="/about" style={{ color: "#ffffff", textDecoration: "none" }}>
+          about
+        </Link>
+        <Link
+          to="/gallery"
+          style={{ color: "#ffffff", textDecoration: "none" }}
         >
-          <Canvas shadows camera={{ position: [0, 0, 6], fov: 50 }}>
-            <color attach="background" args={["#000000"]} />
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[-5, 5, 5]} intensity={3} castShadow />
-            <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
-            <Center>
-              <SpinningTitle3D size={2.2} />
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
-                <planeGeometry args={[15, 5]} />
-                <meshStandardMaterial color="#000000" />
-              </mesh>
-            </Center>
-            <ContactShadows
-              position={[0, -1, 0]} // slightly below text
-              opacity={0.1} // make it darker/lighter
-              scale={10} // how far the shadow spreads
-              blur={2.5} // soft edges
-              far={1.5} // distance from “ground” to shadow
-            />
-          </Canvas>
-        </div>
+          gallery
+        </Link>
+        <Link
+          to="/warranty"
+          style={{ color: "#ffffff", textDecoration: "none" }}
+        >
+          warranty
+        </Link>
+      </nav>
+
+      <div className="hero-canvas">
+        <img src="/img/mqmods.png" alt="mqmods" id="mqtext" style={{ height: "auto", width: "120%", marginLeft: "-75px" }} />
       </div>
 
       <div className="home-container" ref={topRef}>
-        <nav
-          className={`center-nav ${isScrolled ? "visible" : ""}`}
-          ref={navRef}
-        >
-          <Link to="/">home</Link>
-          <Link to="/about">about</Link>
-          <Link to="/gallery">gallery</Link>
-          <Link to="/warranty">warranty</Link>
-        </nav>
         <p className="about" ref={aboutRef} id="about">
           make your controller
         </p>
@@ -739,7 +743,7 @@ function Home() {
                 }}
               >
                 <img
-                  src={oemMode ? "../img/phobfrown.png" : "../img/phob.png"}
+                  src={oemMode ? "/img/phobfrown.png" : "/img/phob.png"}
                   alt="Phob Overlay"
                   style={{ width: "25%", height: "auto", display: "block" }}
                 />

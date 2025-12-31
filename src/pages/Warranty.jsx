@@ -22,6 +22,20 @@ export default function Warranty() {
         overflow: "hidden",
       }}
     >
+      {/* Logo HUD */}
+      <Link
+        to="/"
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "100px",
+          zIndex: 2000,
+          textDecoration: "none",
+        }}
+      >
+        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+      </Link>
+
       {/* Nav */}
       <nav
         style={{
@@ -57,7 +71,6 @@ export default function Warranty() {
           warranty
         </Link>
       </nav>
-
       {/* Background Image */}
       <img
         src="/img/warranty.jpg"
@@ -72,7 +85,6 @@ export default function Warranty() {
           filter: "blur(8px)",
         }}
       />
-
       {/* Dark Overlay */}
       <div
         style={{
@@ -85,7 +97,6 @@ export default function Warranty() {
           pointerEvents: "none",
         }}
       />
-
       {/* Text Container */}
       <div
         style={{
@@ -106,21 +117,31 @@ export default function Warranty() {
           Warranty
         </h1>
         <p style={{ fontSize: "1.1rem", lineHeight: "1.6" }}>
-          I’m pretty chill with most of this stuff, so just email or dm me if you have any issue and I’ll try to work it out with you. I have a few rules just to CYA and because shit happens.
-<br></br>
-<br></br>
-I ship with signature on delivery. If you ship to me for warranty or mods and the package gets lost, I won’t assume responsibility.
-<br></br>
-<br></br>
-6 months warranty for the most part. Things have regular wear and tear and some of them ain’t my fault. Stickbox, pots, and gates will wear. Paracords are easy to break on your own so I only offer 3 months warranty on those. I fix in person or shipped to me.
-<br></br>
-<br></br>
-No refunds. Warranty or replacement only. Commissions are pricey and it’s hard to find another buyer in a not so big market. And you get a good controller from me always, no need to refund.
-<br></br>
-<br></br>
-Orders take 1-2 months after placement. Depending on complexity (some of y’all get everything) can take at most 3 months. I have an option to skip the queue for $$. Shipping is on top of the base cost.
+          I’m pretty chill with most of this stuff, so just email or dm me if
+          you have any issue and I’ll try to work it out with you. I have a few
+          rules just to CYA and because shit happens.
+          <br></br>
+          <br></br>I ship with signature on delivery. If you ship to me for
+          warranty or mods and the package gets lost, I won’t assume
+          responsibility.
+          <br></br>
+          <br></br>6 months warranty for the most part. Things have regular wear
+          and tear and some of them ain’t my fault. Stickbox, pots, and gates
+          will wear. Paracords are easy to break on your own so I only offer 3
+          months warranty on those. I fix in person or shipped to me.
+          <br></br>
+          <br></br>
+          No refunds. Warranty or replacement only. Commissions are pricey and
+          it’s hard to find another buyer in a not so big market. And you get a
+          good controller from me always, no need to refund.
+          <br></br>
+          <br></br>
+          Orders take 1-2 months after placement. Depending on complexity (some
+          of y’all get everything) can take at most 3 months. I have an option
+          to skip the queue for $$. Shipping is on top of the base cost.
         </p>
       </div>
+
       {/* Footer Socials */}
       <footer
         style={{
@@ -174,6 +195,7 @@ Orders take 1-2 months after placement. Depending on complexity (some of y’all
             style={{ height: "48px", width: "48px" }}
           />
         </a>
-      </footer>    </div>
+      </footer>{" "}
+    </div>
   );
 }

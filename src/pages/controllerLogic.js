@@ -334,7 +334,7 @@ export const modOptions = {
     {
       id: "gccblack",
       name: "Black",
-      filename: "../img/gccblack.png",
+      filename: "/img/gccblack.png",
       standard: 200,
       tournament: 250,
       description: "Black shell",
@@ -342,7 +342,7 @@ export const modOptions = {
     {
       id: "gccindigo",
       name: "Indigo",
-      filename: "../img/gcc.png",
+      filename: "/img/gcc.png",
       standard: 200,
       tournament: 250,
       description: "Indigo shell",
@@ -350,7 +350,7 @@ export const modOptions = {
     {
       id: "gccorange",
       name: "Orange",
-      filename: "../img/gccorange.png",
+      filename: "/img/gccorange.png",
       standard: 200,
       tournament: 250,
       description: "Orange shell",
@@ -358,7 +358,7 @@ export const modOptions = {
     {
       id: "gccwhite",
       name: "White",
-      filename: "../img/gccwhite.png",
+      filename: "/img/gccwhite.png",
       standard: 250,
       tournament: 290,
       description: "White shell",
@@ -366,7 +366,7 @@ export const modOptions = {
     {
       id: "gccemerald",
       name: "Emerald",
-      filename: "../img/gccemerald.png",
+      filename: "/img/gccemerald.png",
       standard: 250,
       tournament: 290,
       description: "Emerald shell",

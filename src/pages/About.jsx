@@ -22,6 +22,20 @@ export default function About() {
         overflow: "hidden",
       }}
     >
+      {/* Logo HUD */}
+      <Link
+        to="/"
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "100px",
+          zIndex: 2000,
+          textDecoration: "none",
+        }}
+      >
+        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+      </Link>
+
       {/* Nav */}
       <nav
         style={{
