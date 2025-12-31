@@ -109,7 +109,11 @@ export default function About() {
         <p style={{ fontSize: "1.1rem", lineHeight: "1.6" }}>
           Soldering Professionaly for 5 Years, MQ is the engineer behind the
           controllers of n0ne, Matteo, Kirbykaze, and other players in the
-          Ontario Super Smash Bros. scene
+          Ontario Super Smash Bros. scene.
+        </p>
+
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.6" }}>
+          Play as your best self; <a href="/">create your own controller.</a>
         </p>
       </div>
     </div>
