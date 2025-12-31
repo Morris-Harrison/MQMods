@@ -33,7 +33,11 @@ export default function About() {
           textDecoration: "none",
         }}
       >
-        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+        <img
+          src="/img/Logo.png"
+          alt="Logo"
+          style={{ height: "160px", width: "auto" }}
+        />
       </Link>
 
       {/* Nav */}

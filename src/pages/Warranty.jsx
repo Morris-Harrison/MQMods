@@ -33,9 +33,12 @@ export default function Warranty() {
           textDecoration: "none",
         }}
       >
-        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+        <img
+          src="/img/Logo.png"
+          alt="Logo"
+          style={{ height: "160px", width: "auto" }}
+        />
       </Link>
-
       {/* Nav */}
       <nav
         style={{
@@ -141,7 +144,6 @@ export default function Warranty() {
           to skip the queue for $$. Shipping is on top of the base cost.
         </p>
       </div>
-
       {/* Footer Socials */}
       <footer
         style={{

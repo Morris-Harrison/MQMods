@@ -613,7 +613,11 @@ function Home() {
           textDecoration: "none",
         }}
       >
-        <img src="/img/Logo.png" alt="Logo" style={{ height: "160px", width: "auto" }} />
+        <img
+          src="/img/Logo.png"
+          alt="Logo"
+          style={{ height: "160px", width: "auto" }}
+        />
       </Link>
 
       <nav
@@ -653,7 +657,12 @@ function Home() {
       </nav>
 
       <div className="hero-canvas">
-        <img src="/img/mqmods.png" alt="mqmods" id="mqtext" style={{ height: "auto", width: "120%", marginLeft: "-75px" }} />
+        <img
+          src="/img/mqmods.png"
+          alt="mqmods"
+          id="mqtext"
+          style={{ height: "auto", width: "120%", marginLeft: "-75px" }}
+        />
       </div>
 
       <div className="home-container" ref={topRef}>
