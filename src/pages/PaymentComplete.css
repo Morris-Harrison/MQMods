@@ -1,0 +1,65 @@
+.payment-section,
+.cancel-section {
+  background: #000000;
+  padding: 40px 30px;
+  border-radius: 20px;
+  margin: 40px 20px;
+  border: 2px solid #5a4fcf;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(90, 79, 207, 0.6), inset 0 0 20px rgba(90, 79, 207, 0.2);
+  color: #ffffff;
+  text-align: center;
+}
+
+.payment-section h2,
+.cancel-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.payment-section p,
+.cancel-section p {
+  font-size: 1.1rem;
+  margin: 15px 0;
+  color: #cccccc;
+}
+
+#session-details {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #5a4fcf;
+  text-align: left;
+}
+
+#session-details p {
+  margin: 10px 0;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+#session-details strong {
+  color: #5a4fcf;
+}
+
+@media (max-width: 768px) {
+  .payment-section,
+  .cancel-section {
+    padding: 30px 20px;
+    margin: 30px 15px;
+  }
+
+  .payment-section h2,
+  .cancel-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .payment-section p,
+  .cancel-section p {
+    font-size: 1rem;
+  }
+}

@@ -4,6 +4,9 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import Warranty from "./pages/Warranty";
+import Checkout from "./pages/Checkout";
+import PaymentComplete from "./pages/PaymentComplete";
+import Cancel from "./pages/Cancel";
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/warranty" element={<Warranty />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment-complete" element={<PaymentComplete />} />
+        <Route path="/cancel" element={<Cancel />} />
       </Routes>
     </Router>
   );

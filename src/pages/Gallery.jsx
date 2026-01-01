@@ -79,8 +79,8 @@ export default function Gallery() {
             With over 2 years of controller modding experience, I love both
             vending and modding—and I can do just about everything. A lot of
             this I worked on with my best friend, this wouldn't be possible
-            without them :) Here are some pictures of our work and some happy
-            customers!
+            without them :) Here are some pictures of our work and finally some
+            happy customers!
           </p>
         </div>
 

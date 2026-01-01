@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback } from "react";
 import "./Home.css";
 import {
@@ -276,6 +276,7 @@ function ModSummary({ selectedMods, removeMod, getEffectivePrice }) {
 }
 
 function Home() {
+  const navigate = useNavigate();
   const aboutRef = useRef(null);
   const topRef = useRef(null);
   const navRef = useRef(null);
@@ -707,9 +708,12 @@ function Home() {
             >
               Shell
             </button>
-            <a href="/checkout/checkout.html" className="cart-button">
+            <button 
+              onClick={() => navigate('/checkout')}
+              className="cart-button"
+            >
               Cart
-            </a>
+            </button>
           </div>
 
           <div className="main-container">
@@ -794,9 +798,12 @@ function Home() {
               getEffectivePrice={getEffectivePrice}
             />
 
-            <a href="/checkout/checkout.html" className="cart-button">
+            <button 
+              onClick={() => navigate('/checkout')}
+              className="cart-button"
+            >
               Cart
-            </a>
+            </button>
           </div>
         </div>
 
