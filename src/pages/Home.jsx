@@ -19,6 +19,8 @@ function ModMenu({
   selectedMods,
   tournamentMode,
   oemMode,
+  allHighlighted,
+  motherboardMode,
   toggleMod,
 }) {
   if (activeMenu !== part) return null;
@@ -77,6 +79,8 @@ function ModMenu({
             className="tooltip"
             onClick={() =>
               !isDisabled &&
+              !allHighlighted &&
+              !motherboardMode &&
               toggleMod(
                 part,
                 mod.id,
@@ -87,7 +91,10 @@ function ModMenu({
               )
             }
             style={{
-              cursor: isDisabled ? "default" : "pointer",
+              cursor:
+                isDisabled || allHighlighted || motherboardMode
+                  ? "default"
+                  : "pointer",
               color: isDisabled ? "#aaa" : "inherit",
               pointerEvents: isDisabled ? "none" : "auto",
               margin: "4px 0",
@@ -107,75 +114,16 @@ function ModMenu({
   );
 }
 
-// Shell Menu Component
-function ShellMenu({
-  activeMenu,
-  menuPosition,
-  selectShell,
-  tournamentMode,
+// Mod Summary Component
+function ModSummary({
+  selectedMods,
+  removeMod,
+  getEffectivePrice,
   installMode,
   motherboardMode,
+  oemPhobActive,
   oemMode,
 }) {
-  if (activeMenu !== "shell") return null;
-
-  let modeName = "Shell";
-  let overrideStd = null;
-  let overrideTour = null;
-
-  if (installMode) {
-    modeName = "Conversion";
-    overrideStd = 100;
-    overrideTour = 130;
-  } else if (motherboardMode) {
-    modeName = "Motherboard";
-    overrideStd = 150;
-    overrideTour = 200;
-  } else if (oemMode) {
-    modeName = "OEM";
-    overrideStd = 150;
-    overrideTour = 200;
-  }
-
-  return (
-    <div
-      className="modal active"
-      style={{
-        left: `${menuPosition.x}px`,
-        top: `${menuPosition.y}px`,
-        width: "180px",
-      }}
-    >
-      <h4>{modeName} Mods</h4>
-      {shellOptions.map((opt) => {
-        let price =
-          overrideStd !== null
-            ? tournamentMode
-              ? overrideTour
-              : overrideStd
-            : tournamentMode
-            ? opt.tournament
-            : opt.standard;
-        return (
-          <div
-            key={opt.id}
-            className="tooltip"
-            onClick={() => selectShell(opt.id, opt.filename, modeName)}
-            style={{ cursor: "pointer", margin: "4px 0" }}
-          >
-            <span>
-              {opt.name} (${price})
-            </span>
-            <span className="tooltiptext">{opt.description}</span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// Mod Summary Component
-function ModSummary({ selectedMods, removeMod, getEffectivePrice }) {
   return (
     <div className="mod-summary">
       <h3>Your Mods</h3>
@@ -282,27 +230,16 @@ function Home() {
   const navRef = useRef(null);
 
   // Controller Builder State
-  const [selectedMods, setSelectedMods] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      return JSON.parse(savedCart);
-    }
-    return {
-      Shell: [
-        {
-          id: "gccindigo",
-          name: "Indigo",
-          standard: 200,
-          tournament: 250,
-          description: "Indigo Shell",
-        },
-      ],
-    };
-  });
+  const [selectedMods, setSelectedMods] = useState({});
 
   const [controllerImage, setControllerImage] = useState("/img/gcc.png");
+  const [shellColor, setShellColor] = useState("indigo");
   const [oemMode, setOemMode] = useState(() => {
     const saved = localStorage.getItem("oemMode");
+    return saved ? JSON.parse(saved) : false;
+  });
+  const [oemPhobActive, setOemPhobActive] = useState(() => {
+    const saved = localStorage.getItem("oemPhobActive");
     return saved ? JSON.parse(saved) : false;
   });
   const [installMode, setInstallMode] = useState(() => {
@@ -363,6 +300,10 @@ function Home() {
   }, [oemMode]);
 
   useEffect(() => {
+    localStorage.setItem("oemPhobActive", JSON.stringify(oemPhobActive));
+  }, [oemPhobActive]);
+
+  useEffect(() => {
     localStorage.setItem("installMode", JSON.stringify(installMode));
   }, [installMode]);
 
@@ -370,9 +311,93 @@ function Home() {
     localStorage.setItem("motherboardMode", JSON.stringify(motherboardMode));
   }, [motherboardMode]);
 
+  // Update selectedMods when OEM/PHOB mode changes
+  useEffect(() => {
+    setSelectedMods((prev) => {
+      const newMods = { ...prev };
+      if (oemPhobActive) {
+        // Get shell color name
+        const shellData = [
+          { id: "black", name: "Black", oemPrice: 150, phobPrice: 200 },
+          { id: "indigo", name: "Indigo", oemPrice: 150, phobPrice: 200 },
+          { id: "orange", name: "Orange", oemPrice: 150, phobPrice: 200 },
+          { id: "white", name: "White", oemPrice: 150, phobPrice: 250 },
+          { id: "emerald", name: "Emerald", oemPrice: 150, phobPrice: 250 },
+        ];
+        const selectedShell = shellData.find((s) => s.id === shellColor);
+        const shellName = selectedShell ? selectedShell.name : "Indigo";
+        const shellPrice = selectedShell
+          ? oemMode
+            ? selectedShell.oemPrice
+            : selectedShell.phobPrice
+          : oemMode
+          ? 150
+          : 200;
+
+        newMods["OEM/PHOB"] = [
+          {
+            id: oemMode ? "oem_mode" : "phob_mode",
+            name: `${oemMode ? "OEM" : "PHOB"} - ${shellName}`,
+            standard: shellPrice,
+            tournament: shellPrice,
+            description: `${
+              oemMode ? "OEM" : "PHOB"
+            } controller with ${shellName} shell`,
+          },
+        ];
+      } else {
+        delete newMods["OEM/PHOB"];
+      }
+      return newMods;
+    });
+  }, [oemPhobActive, oemMode, shellColor]);
+
+  // Update selectedMods when Phob Send in mode changes
+  useEffect(() => {
+    setSelectedMods((prev) => {
+      const newMods = { ...prev };
+      if (installMode) {
+        newMods["Phob Send in"] = [
+          {
+            id: "phob_send_in",
+            name: "Phob Send in",
+            standard: 100,
+            tournament: 100,
+            description: "Phob send in service",
+          },
+        ];
+      } else {
+        delete newMods["Phob Send in"];
+      }
+      return newMods;
+    });
+  }, [installMode]);
+
+  // Update selectedMods when Phob Motherboard mode changes
+  useEffect(() => {
+    setSelectedMods((prev) => {
+      const newMods = { ...prev };
+      if (motherboardMode) {
+        newMods["Phob Motherboard"] = [
+          {
+            id: "phob_motherboard",
+            name: "Phob Motherboard",
+            standard: 150,
+            tournament: 150,
+            description: "Phob motherboard service",
+          },
+        ];
+      } else {
+        delete newMods["Phob Motherboard"];
+      }
+      return newMods;
+    });
+  }, [motherboardMode]);
+
   // Toggle OEM mode (PHOB)
   const handleToggleOem = () => {
     setOemMode(!oemMode);
+    setOemPhobActive(true);
     setPhobOpacity(0);
     setTimeout(() => {
       setPhobOpacity(1);
@@ -381,32 +406,40 @@ function Home() {
 
   // Toggle Install mode
   const handleToggleInstall = () => {
+    if (!installMode) {
+      // Entering install mode - clear Shell entries
+      setSelectedMods((prev) => {
+        const newMods = { ...prev };
+        delete newMods["Shell"];
+        delete newMods["OEM"];
+        return newMods;
+      });
+      setMotherboardMode(false);
+    }
     setInstallMode(!installMode);
-    if (!installMode) setMotherboardMode(false);
     if (!installMode && !motherboardMode) resetToIndigo();
   };
 
   // Toggle Motherboard mode
   const handleToggleMotherboard = () => {
+    if (!motherboardMode) {
+      // Entering motherboard mode - clear Shell entries
+      setSelectedMods((prev) => {
+        const newMods = { ...prev };
+        delete newMods["Shell"];
+        delete newMods["OEM"];
+        return newMods;
+      });
+      setInstallMode(false);
+    }
     setMotherboardMode(!motherboardMode);
-    if (!motherboardMode) setInstallMode(false);
     if (!installMode && !motherboardMode) resetToIndigo();
   };
 
   // Reset to Indigo shell
   const resetToIndigo = () => {
     setControllerImage("/img/gcc.png");
-    setSelectedMods({
-      Shell: [
-        {
-          id: "gccindigo",
-          name: "Indigo",
-          standard: 200,
-          tournament: 250,
-          description: "Indigo Shell",
-        },
-      ],
-    });
+    setSelectedMods({});
   };
 
   // Select shell
@@ -421,30 +454,18 @@ function Home() {
         (k) => delete newMods[k]
       );
 
-      // Add new shell entry
-      newMods[shellName] = [
-        {
-          id: shellId,
-          name: shellName === "Shell" ? opt.name : MODE_LABEL[shellName],
-          standard:
-            shellName === "Conversion"
-              ? 100
-              : shellName === "Motherboard"
-              ? 150
-              : shellName === "OEM"
-              ? 150
-              : opt.standard,
-          tournament:
-            shellName === "Conversion"
-              ? 130
-              : shellName === "Motherboard"
-              ? 200
-              : shellName === "OEM"
-              ? 200
-              : opt.tournament,
-          description: opt.description,
-        },
-      ];
+      // Only add shell entry for OEM or default Shell
+      if (shellName === "Shell" || shellName === "OEM") {
+        newMods[shellName] = [
+          {
+            id: shellId,
+            name: shellName === "Shell" ? opt.name : MODE_LABEL[shellName],
+            standard: shellName === "OEM" ? 150 : opt.standard,
+            tournament: shellName === "OEM" ? 200 : opt.tournament,
+            description: opt.description,
+          },
+        ];
+      }
 
       return newMods;
     });
@@ -497,6 +518,19 @@ function Home() {
   // Toggle all highlights
   const handleToggleAll = () => {
     setAllHighlighted(!allHighlighted);
+    setOemPhobActive(false);
+  };
+
+  // Reset all mods
+  const handleResetMods = () => {
+    setSelectedMods({});
+    setOemMode(false);
+    setOemPhobActive(false);
+    setAllHighlighted(false);
+    setInstallMode(false);
+    setMotherboardMode(false);
+    setShellColor("indigo");
+    setControllerImage("/img/gcc.png");
   };
 
   // Create overlays on image load
@@ -673,48 +707,167 @@ function Home() {
 
         <div>
           <div className="action-bar">
-            <button onClick={handleToggleAll} className="toggle-btn">
+            <button
+              onClick={handleToggleAll}
+              className="toggle-btn"
+              style={{
+                background: "#000000",
+                border: "2px solid #ffffff",
+                color: "white",
+                boxShadow: allHighlighted ? "0 0 25px #ffff00" : "none",
+              }}
+            >
               View All Mods
             </button>
             <button
               onClick={handleToggleOem}
               className="toggle-btn"
-              style={{ background: "#faa61a" }}
+              disabled={allHighlighted || installMode || motherboardMode}
+              style={{
+                background: "#000000",
+                border: "2px solid #ffffff",
+                color: "white",
+                boxShadow: oemPhobActive ? "0 0 25px #ffff00" : "none",
+                opacity:
+                  allHighlighted || installMode || motherboardMode ? 0.5 : 1,
+                cursor:
+                  allHighlighted || installMode || motherboardMode
+                    ? "not-allowed"
+                    : "pointer",
+              }}
             >
               {oemMode ? "OEM" : "PHOB"}
             </button>
             <button
               onClick={handleToggleInstall}
               className="toggle-btn"
-              style={{ background: "#7274cc" }}
+              disabled={oemPhobActive || allHighlighted || motherboardMode}
+              style={{
+                background: "#000000",
+                border: "2px solid #ffffff",
+                color: "white",
+                boxShadow: installMode ? "0 0 25px #ffff00" : "none",
+                opacity:
+                  oemPhobActive || allHighlighted || motherboardMode ? 0.5 : 1,
+                cursor:
+                  oemPhobActive || allHighlighted || motherboardMode
+                    ? "not-allowed"
+                    : "pointer",
+              }}
             >
-              Conversion
+              Phob Send in
             </button>
             <button
               onClick={handleToggleMotherboard}
               className="toggle-btn"
-              style={{ background: "#72cc86" }}
-            >
-              Motherboard
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setActiveMenu(activeMenu === "shell" ? null : "shell");
-                setMenuPosition({ x: e.pageX, y: e.pageY + 10 });
+              disabled={oemPhobActive || allHighlighted || installMode}
+              style={{
+                background: "#000000",
+                border: "2px solid #ffffff",
+                color: "white",
+                boxShadow: motherboardMode ? "0 0 25px #ffff00" : "none",
+                opacity:
+                  oemPhobActive || allHighlighted || installMode ? 0.5 : 1,
+                cursor:
+                  oemPhobActive || allHighlighted || installMode
+                    ? "not-allowed"
+                    : "pointer",
               }}
-              className="toggle-btn"
-              style={{ background: "#5A4FCF" }}
             >
-              Shell
-            </button>
-            <button 
-              onClick={() => navigate('/checkout')}
+              Phob Motherboard
+            </button>{" "}
+            <button
+              onClick={handleResetMods}
+              className="toggle-btn"
+              style={{
+                background: "#000000",
+                border: "2px solid #ffffff",
+                color: "white",
+                boxShadow: "none",
+              }}
+            >
+              Reset All Mods
+            </button>{" "}
+            <button
+              onClick={() => navigate("/checkout")}
               className="cart-button"
+              style={{
+                background: "#ffff00",
+                border: "none",
+                cursor: "pointer",
+                padding: "12px 24px",
+                color: "#000000",
+                fontWeight: "bold",
+                borderRadius: "4px",
+              }}
             >
               Cart
             </button>
           </div>
+
+          {/* Shell Color Selection */}
+          {(oemMode || (!installMode && !motherboardMode)) && (
+            <div style={{ padding: "16px", textAlign: "center" }}>
+              <h4 style={{ marginBottom: "12px", color: "#fff" }}>
+                Shell Mods
+              </h4>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                {[
+                  { id: "black", name: "Black", oemPrice: 150, phobPrice: 200 },
+                  {
+                    id: "indigo",
+                    name: "Indigo",
+                    oemPrice: 150,
+                    phobPrice: 200,
+                  },
+                  {
+                    id: "orange",
+                    name: "Orange",
+                    oemPrice: 150,
+                    phobPrice: 200,
+                  },
+                  { id: "white", name: "White", oemPrice: 150, phobPrice: 250 },
+                  {
+                    id: "emerald",
+                    name: "Emerald",
+                    oemPrice: 150,
+                    phobPrice: 250,
+                  },
+                ].map((shell) => (
+                  <button
+                    key={shell.id}
+                    onClick={() => {
+                      setShellColor(shell.id);
+                      setControllerImage(
+                        `/img/gcc${shell.id === "indigo" ? "" : shell.id}.png`
+                      );
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      background: "#000000",
+                      color: "white",
+                      border: "2px solid #ffffff",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      transition: "all 0.3s",
+                      boxShadow:
+                        shellColor === shell.id ? "0 0 25px #ffff00" : "none",
+                    }}
+                  >
+                    {shell.name} (${oemMode ? shell.oemPrice : shell.phobPrice})
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="main-container">
             {/* Controller Image Container with Dynamic Overlays */}
@@ -774,20 +927,11 @@ function Home() {
                 selectedMods={selectedMods}
                 tournamentMode={tournamentMode}
                 oemMode={oemMode}
+                allHighlighted={allHighlighted}
+                motherboardMode={motherboardMode}
                 toggleMod={toggleMod}
               />
             ))}
-
-            {/* Shell Menu */}
-            <ShellMenu
-              activeMenu={activeMenu}
-              menuPosition={menuPosition}
-              selectShell={selectShell}
-              tournamentMode={tournamentMode}
-              installMode={installMode}
-              motherboardMode={motherboardMode}
-              oemMode={oemMode}
-            />
 
             {/* Selected Mods Summary */}
             <ModSummary
@@ -796,11 +940,23 @@ function Home() {
               tournamentMode={tournamentMode}
               oemMode={oemMode}
               getEffectivePrice={getEffectivePrice}
+              installMode={installMode}
+              motherboardMode={motherboardMode}
+              oemPhobActive={oemPhobActive}
             />
 
-            <button 
-              onClick={() => navigate('/checkout')}
+            <button
+              onClick={() => navigate("/checkout")}
               className="cart-button"
+              style={{
+                background: "#ffff00",
+                border: "none",
+                cursor: "pointer",
+                padding: "12px 24px",
+                color: "#000000",
+                fontWeight: "bold",
+                borderRadius: "4px",
+              }}
             >
               Cart
             </button>

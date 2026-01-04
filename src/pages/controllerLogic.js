@@ -47,14 +47,14 @@ export const modOptions = {
       id: "paracord_2m",
       name: "Paracord 2 Metres",
       standard: 55,
-      tournament: 60,
+      tournament: 55,
       description: "Same as below but 2 metre old controller length.",
     },
     {
       id: "paracord_3m",
       name: "Paracord 3 Metres",
       standard: 65,
-      tournament: 70,
+      tournament: 65,
       description:
         "Cord hand crimped and paracorded up. Length of new controller cable.",
     },
@@ -62,14 +62,14 @@ export const modOptions = {
       id: "oem_3m",
       name: "OEM 3 Metres",
       standard: 10,
-      tournament: 15,
+      tournament: 10,
       description: "OEM 3 Metres (if applicable).",
     },
     {
       id: "white_oem",
       name: "White OEM",
       standard: 35,
-      tournament: 45,
+      tournament: 35,
       description: "Subject to stock. OEM white cable.",
     },
   ],
@@ -78,7 +78,7 @@ export const modOptions = {
       id: "tactile_z",
       name: "Tactile Z",
       standard: 10,
-      tournament: 15,
+      tournament: 10,
       description:
         "Replace mushy OEM z with tactile clicky z. <strong>Recommend</strong>.",
     },
@@ -86,14 +86,14 @@ export const modOptions = {
       id: "bald_z",
       name: "Bald Z",
       standard: 20,
-      tournament: 30,
+      tournament: 20,
       description: "Rounded out z. Very nice with mouseclick z.",
     },
     {
       id: "mouseclick_z",
-      name: "Mouseclick Z",
+      name: "Mouseclick Z (Phob exclusive)",
       standard: 35,
-      tournament: 50,
+      tournament: 35,
       description:
         "Replace z button with a mouseclick button. Reliable and very nice. <strong>Recommend</strong>.",
     },
@@ -101,9 +101,9 @@ export const modOptions = {
   "Face Buttons": [
     {
       id: "mouseclick_abxy",
-      name: "Mouseclick ABXY",
+      name: "Mouseclick ABXY (Phob exclusive)",
       standard: 60,
-      tournament: 80,
+      tournament: 60,
       description:
         "Put mouseclick on the abxy. Pairs well with bald buttons. Recommend if you like the feel.",
     },
@@ -118,7 +118,7 @@ export const modOptions = {
       id: "bald_buttons",
       name: "Bald Buttons",
       standard: 70,
-      tournament: 80,
+      tournament: 70,
       description:
         "OEM buttons sanded down to be easy to slide on. Good improvement on instant nair etc.",
     },
@@ -128,7 +128,7 @@ export const modOptions = {
       id: "ergo_trigger",
       name: "Ergo Trigger",
       standard: 30,
-      tournament: 40,
+      tournament: 30,
       description:
         "Shaved down triggers, like a modern controller. Controller feels natural.",
     },
@@ -136,7 +136,7 @@ export const modOptions = {
       id: "full_plug",
       name: "Full Plug",
       standard: 3,
-      tournament: 5,
+      tournament: 3,
       description:
         "Full Plug. Select if you want full digital for mouseclick trigger",
     },
@@ -144,7 +144,7 @@ export const modOptions = {
       id: "half_plug",
       name: "Half Plug",
       standard: 3,
-      tournament: 5,
+      tournament: 3,
       description:
         "Half Plug. Select if you want analog (lightshield) for mouseclick trigger",
     },
@@ -152,7 +152,7 @@ export const modOptions = {
       id: "low_force",
       name: "Low Force",
       standard: 15,
-      tournament: 20,
+      tournament: 15,
       description:
         "Custom spring and lube makes the trigger feel weightless. Almost 100g force difference. <strong>Recommend</strong>.",
     },
@@ -160,7 +160,7 @@ export const modOptions = {
       id: "mouseclick_trigger",
       name: "Mouseclick",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Puts a mouseclick on there. Lowest press force possible. Can keep analog.",
     },
@@ -168,7 +168,7 @@ export const modOptions = {
       id: "potentiometer_lt",
       name: "Potentiometer Replacement",
       standard: 20,
-      tournament: 10,
+      tournament: 20,
       description:
         "Swap the left-trigger slider pot for crisp, reliable analog.",
     },
@@ -178,7 +178,7 @@ export const modOptions = {
       id: "ergo_trigger",
       name: "Ergo Trigger",
       standard: 30,
-      tournament: 40,
+      tournament: 30,
       description:
         "Shaved down triggers, like a modern controller. Controller feels natural.",
     },
@@ -202,7 +202,7 @@ export const modOptions = {
       id: "low_force",
       name: "Low Force",
       standard: 15,
-      tournament: 20,
+      tournament: 15,
       description:
         "Custom spring and lube makes the trigger feel weightless. Almost 100g force difference. <strong>Recommend</strong>.",
     },
@@ -210,7 +210,7 @@ export const modOptions = {
       id: "mouseclick_trigger",
       name: "Mouseclick",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Puts a mouseclick on there. Lowest press force possible. Can keep analog.",
     },
@@ -218,7 +218,7 @@ export const modOptions = {
       id: "potentiometer_rt",
       name: "Potentiometer Replacement",
       standard: 20,
-      tournament: 10,
+      tournament: 20,
       description:
         "Swap the right-trigger slider pot for crisp, reliable analog.",
     },
@@ -228,7 +228,7 @@ export const modOptions = {
       id: "slickbox",
       name: "Slickbox",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Make the stickbox feel worn in and loose but not wobbly. Free flying.",
     },
@@ -236,7 +236,7 @@ export const modOptions = {
       id: "wavespring",
       name: "Wavespring",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Normalize the resistance on the X and Y axis of the stick. OEM is tighter on one. <strong>Recommend</strong>.",
     },
@@ -258,14 +258,14 @@ export const modOptions = {
       id: "firefox_notches",
       name: "Firefox Notches",
       standard: 100,
-      tournament: 120,
+      tournament: 100,
       description: "Precise angle notches on the left up and right gates.",
     },
     {
       id: "wavedash_notches",
       name: "Wavedash Notches",
       standard: 45,
-      tournament: 50,
+      tournament: 45,
       description:
         "Notches for perfect wavedash angle, comes with Firefox notches.",
     },
@@ -273,7 +273,7 @@ export const modOptions = {
       id: "bottom_notch",
       name: "Bottom Notch",
       standard: 25,
-      tournament: 40,
+      tournament: 25,
       description: "Notches for the bottom gate.",
     },
     {
@@ -287,7 +287,7 @@ export const modOptions = {
       id: "potentiometer_grey",
       name: "Potentiometer Replacement",
       standard: 60,
-      tournament: 10,
+      tournament: 60,
       description: "Replace both X- and Y-axis pots",
     },
   ],
@@ -296,7 +296,7 @@ export const modOptions = {
       id: "slickbox",
       name: "Slickbox",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Make the stickbox feel worn in and loose but not wobbly. Free flying.",
     },
@@ -304,7 +304,7 @@ export const modOptions = {
       id: "wavespring",
       name: "Wavespring",
       standard: 20,
-      tournament: 25,
+      tournament: 20,
       description:
         "Normalize the resistance on the X and Y axis of the stick. OEM is tighter on one. <strong>Recommend</strong>.",
     },
@@ -326,7 +326,7 @@ export const modOptions = {
       id: "potentiometer_c",
       name: "Potentiometer Replacement",
       standard: 60,
-      tournament: 10,
+      tournament: 60,
       description: "Renew both C-Stick potentiometers for a like-new feel.",
     },
   ],
