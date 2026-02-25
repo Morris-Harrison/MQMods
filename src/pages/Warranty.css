@@ -1,0 +1,10 @@
+.warranty-wrapper {
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.warranty-wrapper::-webkit-scrollbar {
+  display: none;
+}

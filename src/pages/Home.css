@@ -1,0 +1,576 @@
+#root {
+  font-family: monospace, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+body,
+html {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-color: #000000;
+
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+}
+
+.center-nav {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  font-size: 1.2rem;
+  gap: 2rem;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  padding: 20px 0 20px 20px;
+  background: transparent;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.center-nav.visible {
+  transform: translateY(0);
+}
+
+.center-nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.center-nav a:hover {
+  color: yellow;
+}
+
+header {
+  font-size: clamp(2rem, 12vw, 250px);
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  position: sticky;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 0 2vw;
+}
+.hero-canvas {
+  margin-left: 30px;
+  margin-top: 0px;
+  width: 1000px;
+  /* full screen */
+  position: relative;
+}
+h1 {
+  font-size: 80px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  text-align: center;
+  margin-top: -100px;
+}
+
+.about {
+  width: 100%;
+  max-width: 1800px;
+  font-size: clamp(1.1rem, 4vw, 50px);
+  margin-top: 60px;
+  border-radius: 70px;
+  background-color: rgb(0, 0, 0);
+  box-sizing: border-box;
+  font-style: italic;
+  text-align: center;
+  left: 0;
+  right: 0;
+  position: relative;
+}
+
+.about:hover,
+.more:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mqtext {
+  width: 400px;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  margin: 0 4px 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #5a4fcf;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* accent buttons */
+#toggle-oem {
+  background: #faa61a;
+}
+#toggle-install {
+  background: #7274cc;
+}
+#toggle-motherboard {
+  background: #72cc86;
+}
+#toggle-tournament {
+  display: none;
+}
+
+/* Controller Image Container */
+#controllerContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border-radius: 4px;
+  overflow: visible;
+  margin-bottom: 16px;
+}
+#controllerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#shell-button {
+  position: absolute;
+  right: -50px; /* adjust as needed */
+  top: calc(50% - 12px); /* vertically center assuming ~24px height */
+  background: #5a4fcf;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.1s ease, background 0.3s ease;
+}
+
+/* Phob Overlay */
+#phob-overlay {
+  position: absolute;
+  top: 30%;
+  left: 65%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+#phob-overlay img {
+  width: 25%;
+  height: auto;
+  display: block;
+}
+
+/* Dynamic Overlays for Non-Shell Parts */
+.part-overlay {
+  padding: 8px;
+  position: absolute;
+  cursor: pointer;
+  transition: background 0.3s, outline 0.3s;
+}
+.part-overlay:hover,
+.part-overlay.hovered,
+.part-overlay.always-highlight {
+  outline: 2px solid #5a4fcf;
+  background: rgba(90, 79, 207, 0.7);
+}
+/* Pulse Animation for initial hotspot highlight */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+.part-overlay.initial-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Popup Mod Menu */
+.modal {
+  display: none;
+  position: absolute;
+  background: #f2f2f2;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: 12px;
+  z-index: 100;
+  width: 220px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  text-align: left;
+  color: #000;
+}
+.modal.active {
+  display: block;
+}
+.modal h4 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 4px;
+  color: #5a4fcf;
+}
+.modal .tooltip {
+  margin: 4px 0;
+  cursor: pointer;
+}
+.modal .tooltip span {
+  margin-right: 4px;
+}
+.modal .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px;
+  position: absolute;
+  z-index: 110;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+.modal .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Selected Mods Summary (Cart) */
+.mod-summary {
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  color: #000;
+}
+.mod-summary h3 {
+  width: 100%;
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 6px;
+  color: #5a4fcf;
+}
+
+/* Container for mod groups (columns) */
+#mod-groups {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: flex-start;
+  width: 100%;
+}
+/* Each mod group (column) */
+.mod-group {
+  flex: 0 0 150px;
+  color: #000;
+}
+.mod-group h4 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5a4fcf;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 2px;
+}
+.mod-group li {
+  color: #000;
+}
+/* Inside each mod group, use grid layout */
+.mod-group ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, auto);
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mod-group li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+}
+.mod-group li:last-child {
+  border-bottom: none;
+}
+.mod-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.remove-mod {
+  color: #e74c3c;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 16px;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+.mod-group .tooltip {
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 16px;
+  position: relative;
+}
+.mod-group .tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 3px;
+  padding: 4px;
+  position: absolute;
+  z-index: 110;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mod-group .tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Cart Button */
+.cart-button {
+  background: #faa61a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease;
+  animation: pulse-default 2s ease-in-out infinite;
+}
+
+.cart-button:hover {
+  background: #ffc447;
+}
+
+.action-bar .cart-button {
+  padding: 8px 16px;
+  margin: 0 4px 1rem;
+  font-size: 0.95rem;
+}
+
+.main-container > .cart-button {
+  margin-top: 40px;
+  padding: 16px 32px;
+  font-size: 2rem;
+}
+
+@keyframes pulse-default {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Media Query for Mobile */
+@media (max-width: 600px) {
+  .main-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+  #mod-groups {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mod-group {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .mod-summary,
+  .mod-group h4,
+  .mod-group li {
+    font-size: 0.85rem;
+  }
+  /* Reposition shell button for mobile: inside container, bottom-right */
+  #shell-button {
+    right: 10px;
+    bottom: 10px;
+    top: auto;
+    transform: none;
+  }
+  /* Center modals on mobile */
+  .modal {
+    width: 80%;
+    left: 10%;
+    top: 20%;
+  }
+}
+
+/* Active state feedback for interactive elements */
+.toggle-btn:active,
+#shell-button:active,
+#toggle-oem:active,
+#toggle-install:active,
+#toggle-motherboard:active .cart-button:active {
+  transform: scale(0.97);
+}
+
+footer {
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+@font-face {
+  font-family: "OMORI";
+  src: url("../assets/OMORI_GAME2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.home-container {
+  max-width: 1800px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+@media (max-width: 1800px) {
+  .home-container {
+    max-width: 100vw;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+  }
+  .about,
+  .more {
+    max-width: 90vw;
+    font-size: 2.2rem;
+    margin-top: 40px;
+    padding: 2vw 2vw;
+  }
+  header {
+    font-size: clamp(2rem, 12vw, 120px);
+    margin-top: 0;
+    padding: 0 2vw;
+  }
+  h1 {
+    font-size: 40px;
+    margin-top: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .center-nav {
+    font-size: 1.1rem;
+    gap: 1rem;
+    padding: 10px 0 10px 10px;
+  }
+  .preview-grid {
+    grid-template-columns: 1fr;
+    max-width: 95vw;
+    gap: 15px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .preview-card {
+    min-height: 200px;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  .preview-image {
+    height: 180px;
+    font-size: 1rem;
+  }
+  .about,
+  .more {
+    max-width: 95vw;
+    font-size: 1.1rem;
+    margin-top: 30px;
+    border-radius: 20px;
+    padding: 2vw 2vw;
+  }
+  header {
+    font-size: clamp(2rem, 12vw, 60px);
+    margin-top: 0;
+    padding: 0 2vw;
+  }
+  h1 {
+    font-size: 22px;
+    margin-top: -20px;
+  }
+  .conclusion {
+    font-size: 1.1rem;
+  }
+  footer {
+    font-size: 1rem;
+  }
+}
