@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 /**
  * Build the email text from the cart data.
@@ -53,7 +53,7 @@ MQMods Team`;
   return text;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -122,4 +122,4 @@ export default async function handler(req, res) {
     console.error('SendMail error:', err);
     return res.status(500).json({ error: 'Internal Server Error', details: err.message });
   }
-}
+};

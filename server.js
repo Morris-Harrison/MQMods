@@ -10,6 +10,7 @@ app.use(express.json());
 // Import API routes
 const createCheckoutSession = require('./api/create-checkout-session.js');
 const sessionStatus = require('./api/session-status.js');
+const sendMail = require('./api/sendMail.js');
 
 // API Routes
 app.post('/api/create-checkout-session', async (req, res) => {
@@ -18,6 +19,10 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 app.get('/api/session-status', async (req, res) => {
   await sessionStatus(req, res);
+});
+
+app.post('/api/sendMail', async (req, res) => {
+  await sendMail(req, res);
 });
 
 // Start server

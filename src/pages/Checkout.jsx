@@ -109,15 +109,31 @@ export default function Checkout() {
       return;
     }
     
-    // Determine service type
-    const oemMode = localStorage.getItem("oemMode") === "true";
-    const motherboardMode = localStorage.getItem("motherboardMode") === "true";
-    let serviceType = "Phob";
-    
-    if (oemMode && !motherboardMode) {
-      serviceType = "OEM";
-    } else if (motherboardMode) {
-      serviceType = "OEM to Phob Send In";
+    try {
+      // Send confirmation email
+      const mailResponse = await fetch("/api/sendMail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          name: formData.name,
+          address: formData.address,
+          additionalContact: formData.additionalContact,
+          email: formData.email,
+          rumble: formData.rumble
+        }),
+      });
+
+      if (!mailResponse.ok) {
+        const error = await mailResponse.text();
+        console.error("Email send error:", error);
+        alert("Email could not be sent, but your order has been recorded. Please proceed with payment.");
+      } else {
+        console.log("Confirmation email sent successfully");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Email notification failed, but you can proceed with payment.");
     }
     
     // Show success popup
