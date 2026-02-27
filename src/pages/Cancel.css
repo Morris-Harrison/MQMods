@@ -1,0 +1,68 @@
+.cancel-section {
+  background: #000000;
+  padding: 40px 30px;
+  border-radius: 20px;
+  margin: 40px 20px;
+  border: 2px solid #5a4fcf;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(90, 79, 207, 0.6), inset 0 0 20px rgba(90, 79, 207, 0.2);
+  color: #ffffff;
+  text-align: center;
+}
+
+.cancel-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.cancel-section p {
+  font-size: 1.1rem;
+  margin: 15px 0;
+  color: #cccccc;
+}
+
+.cancel-section a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: #faa61a;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  animation: pulse-button 2s ease-in-out infinite;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.cancel-section a:hover {
+  background: #ffc447;
+}
+
+@keyframes pulse-button {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .cancel-section {
+    padding: 30px 20px;
+    margin: 30px 15px;
+  }
+
+  .cancel-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .cancel-section p {
+    font-size: 1rem;
+  }
+}
