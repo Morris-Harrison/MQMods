@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
  */
 function buildEmailText({ cart, name, address, additionalContact, rumble }) {
   let totalCAD = 0;
-  let productNames = [];
+  let productLines = [];
   const categoryMap = {};
 
   for (let category in cart) {
@@ -16,39 +16,36 @@ function buildEmailText({ cart, name, address, additionalContact, rumble }) {
     categoryMap[category] = [];
 
     items.forEach((item) => {
-      productNames.push(item.name);
       const price = item.effectivePrice || item.standard || item.tournament || 0;
       totalCAD += price;
       categoryMap[category].push({
         name: item.name,
         price: price
       });
+      productLines.push(item.name + ' - $' + price.toFixed(2) + ' CAD');
     });
   }
 
   const priceUSD = (totalCAD * 0.76).toFixed(2);
 
-  let text = `Thank you for submitting your order! I will be contacting you within the next 2-3 days. 
-Please feel free to contact me before that if you have any questions.
-
-ORDER DETAILS:
-================
-Contact: ${additionalContact || name}
-Tag/Name: ${name}
-Address: ${address}
-Rumble: ${rumble}
-
-PRODUCTS ORDERED:
-================
-${productNames.join('\n')}
-
-PRICING:
-================
-Price (CAD): $${totalCAD.toFixed(2)}
-Price (USD): $${priceUSD}
-
-Thank you for your business!
-MQMods Team`;
+  let text = 'Hi,\n\n';
+  text += 'Thank you for submitting your order! I will be contacting you within the next 2-3 days. \n';
+  text += 'Please feel free to contact me before that if you have any questions.\n\n';
+  text += 'ORDER DETAILS:\n';
+  text += '================\n';
+  text += 'Contact: ' + (additionalContact || name) + '\n';
+  text += 'Tag/Name: ' + name + '\n';
+  text += 'Address: ' + address + '\n';
+  text += 'Rumble: ' + rumble + '\n\n';
+  text += 'PRODUCTS ORDERED:\n';
+  text += '================\n';
+  text += productLines.join('\n') + '\n\n';
+  text += 'PRICING:\n';
+  text += '================\n';
+  text += 'Price (CAD): $' + totalCAD.toFixed(2) + '\n';
+  text += 'Price (USD): $' + priceUSD + '\n\n';
+  text += 'Thank you for your business!\n';
+  text += 'MQMods Team';
 
   return text;
 }

@@ -240,7 +240,7 @@ function Home() {
   });
   const [oemPhobActive, setOemPhobActive] = useState(() => {
     const saved = localStorage.getItem("oemPhobActive");
-    return saved ? JSON.parse(saved) : false;
+    return saved ? JSON.parse(saved) : true;
   });
   const [installMode, setInstallMode] = useState(() => {
     const saved = localStorage.getItem("installMode");
