@@ -582,6 +582,21 @@ footer a {
 }
 
 @media (max-width: 768px) {
+  /* Fix logo positioning on tablet/mobile */
+  a[href="/"] > img {
+    height: 120px !important;
+    position: fixed;
+    top: 20px;
+    left: 20px !important;
+    z-index: 2000;
+  }
+
+  /* Fix mqmods image overflow */
+  #mqtext {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
   .center-nav {
     font-size: 1.1rem;
     gap: 1rem;
@@ -625,5 +640,50 @@ footer a {
   }
   footer {
     font-size: 1rem;
+  }
+  
+  /* Fix navigation styling on tablet */
+  nav {
+    flex-wrap: wrap;
+    gap: 1rem !important;
+    padding: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Logo on small mobile */
+  a[href="/"] > img {
+    height: 80px !important;
+    top: 15px !important;
+    left: 15px !important;
+  }
+
+  /* Fix mqmods image on small screens */
+  #mqtext {
+    width: 100% !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+  }
+
+  .hero-canvas {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  nav {
+    gap: 0.5rem !important;
+    padding: 10px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .toggle-btn {
+    padding: 6px 8px !important;
+    font-size: 0.8rem !important;
+    margin: 0 2px 0.5rem !important;
+  }
+
+  .cart-button {
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
   }
 }
