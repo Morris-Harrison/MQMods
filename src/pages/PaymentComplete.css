@@ -55,11 +55,49 @@
 
   .payment-section h2,
   .cancel-section h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 5vw, 1.5rem);
   }
 
   .payment-section p,
   .cancel-section p {
     font-size: 1rem;
+    margin: 12px 0;
+  }
+
+  #session-details {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  #session-details p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-section,
+  .cancel-section {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+
+  .payment-section h2,
+  .cancel-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .payment-section p,
+  .cancel-section p {
+    font-size: 0.95rem;
+    margin: 10px 0;
+  }
+
+  #session-details {
+    padding: 12px;
+  }
+
+  #session-details p {
+    font-size: 0.85rem;
+    word-break: break-word;
   }
 }

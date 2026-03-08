@@ -3,6 +3,8 @@
   padding: 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .warranty-wrapper::-webkit-scrollbar {

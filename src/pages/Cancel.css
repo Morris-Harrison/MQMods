@@ -59,10 +59,39 @@
   }
 
   .cancel-section h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 5vw, 1.5rem);
   }
 
   .cancel-section p {
     font-size: 1rem;
+    margin: 12px 0;
+  }
+
+  .cancel-section a {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cancel-section {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+
+  .cancel-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .cancel-section p {
+    font-size: 0.95rem;
+    margin: 10px 0;
+  }
+
+  .cancel-section a {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    display: block;
+    margin: 15px auto;
   }
 }

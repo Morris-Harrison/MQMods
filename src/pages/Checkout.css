@@ -239,14 +239,29 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .checkout-page {
+    padding: 0;
+  }
+
+  .checkout-header {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
   .checkout-header h1 {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 6vw, 1.8rem);
+    margin-bottom: 15px;
   }
 
   .order-summary,
   .option-section {
     padding: 20px;
-    margin: 15px;
+    margin: 15px 10px;
+    box-sizing: border-box;
+  }
+
+  .option-section h3 {
+    font-size: clamp(1.1rem, 5vw, 1.3rem);
   }
 
   .checkout-logo {
@@ -255,14 +270,35 @@
 
   .checkout-nav {
     margin-top: 70px;
-    gap: 20px;
-    padding: 15px;
+    gap: 15px;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cart-table {
+    font-size: 0.85rem;
   }
 
   .cart-table th,
   .cart-table td {
     padding: 8px;
     font-size: 0.9rem;
+  }
+
+  .order-summary h2 {
+    font-size: 1.3rem;
+  }
+
+  .total {
+    font-size: 1rem;
+  }
+
+  .total-grand {
+    font-size: 1.2rem;
+  }
+
+  .contact-form {
+    max-width: 100%;
   }
 
   .contact-form label {
@@ -273,6 +309,45 @@
   .contact-form textarea {
     padding: 10px;
     font-size: 0.95rem;
+    margin-bottom: 15px;
+  }
+
+  .stripe-button,
+  .contact-form button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-header {
+    margin: 15px 5px;
+    padding: 15px;
+  }
+
+  .checkout-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .order-summary,
+  .option-section {
+    padding: 15px;
+    margin: 10px 5px;
+  }
+
+  .option-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 }
 
